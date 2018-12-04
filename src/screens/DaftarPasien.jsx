@@ -2,6 +2,7 @@ import React from 'react';
 import { DaftarPasienRow } from '../components/DaftarPasienRow';
 import { Loading } from '../components/Loading';
 import { TableContainer } from '../containers/TableContainer';
+import {Appointment} from '../utils/Appointment';
 
 export class DaftarPasien extends React.Component {
 	/** 
@@ -15,6 +16,12 @@ export class DaftarPasien extends React.Component {
 			loading: true,
 			listPasien: []
 		}
+		Appointment.getAllPasien().then(response => {
+			this.setState({
+				loading: false,
+				listPasien: response.result
+			})
+		})
 	}
 
 	render() {
@@ -24,7 +31,7 @@ export class DaftarPasien extends React.Component {
             )
         } else {
             return (
-                <TableContainer title="Daftar Pasien" header={['Nama Pasien', 'Status Pasien', 'Aksi']}>
+                <TableContainer title="Daftar Pasien" header={['Nama Pasien', 'Status Pasien', 'Aksi', 'Billing']}>
                     <DaftarPasienRow listPasien={this.state.listPasien}/>
                 </TableContainer>
             )
